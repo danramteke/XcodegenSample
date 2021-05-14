@@ -3,19 +3,6 @@ options:
   deploymentTarget:
     iOS: "14.0"
     macOS: "11.0"
-# schemes:
-#   'XcodegenSample (iOS)':
-#     build:
-#       targets:
-#         'XcodegenSample (iOS)': all
-#     test:
-#       targets: ['Tests iOS']
-#   'XcodegenSample (macOS)':
-#     build:
-#       targets:
-#         'XcodegenSample (macOS)': all
-#     test:
-#       targets: ['Tests macOS']
 targets:
   'XcodegenSample (iOS)':
     type: application
@@ -31,6 +18,26 @@ targets:
       VERSIONING_SYSTEM: apple-generic
       SWIFT_VERSION: 5.4
       CURRENT_PROJECT_VERSION: 1
+    info:
+      path: iOS/Info.plist
+      properties:
+        CFBundlePackageType: "$(PRODUCT_BUNDLE_PACKAGE_TYPE)"
+        LSRequiresIPhoneOS: true
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: true
+        UIApplicationSupportsIndirectInputEvents: true
+        UILaunchScreen: {}
+        UIRequiredDeviceCapabilities: [armv7]
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+
   'XcodegenSample (macOS)':
     type: application
     platform: macOS
@@ -45,6 +52,17 @@ targets:
       VERSIONING_SYSTEM: apple-generic
       SWIFT_VERSION: 5.4
       CURRENT_PROJECT_VERSION: 1
+    info:
+      path: macOS/Info.plist
+      properties: 
+        CFBundlePackageType: "$(PRODUCT_BUNDLE_PACKAGE_TYPE)"
+        CFBundleIconFile: ""
+        LSMinimumSystemVersion: $(MACOSX_DEPLOYMENT_TARGET)
+    entitlements:
+      path: macOS/macOS.entitlements
+      properties:
+        com.apple.security.app-sandbox: true
+        com.apple.security.files.user-selected.read-only: true
   'Tests iOS':
     type: bundle.ui-testing   
     platform: iOS
